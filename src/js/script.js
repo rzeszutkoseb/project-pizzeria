@@ -63,6 +63,7 @@ const select = {
           thisProduct.getElements();
           thisProduct.initAccordion();
           thisProduct.initOrderForm();
+          thisProduct.initAmountWidget();
           thisProduct.processOrder();
 
           console.log('new Product:', thisProduct);
@@ -90,6 +91,7 @@ const select = {
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
 
       }
 
@@ -99,7 +101,6 @@ const select = {
       const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
 
       clickableTrigger.addEventListener('click', function (event) {
-        
         event.preventDefault();
 
         const activeProduct = document.querySelector(select.all.menuProductsActive);
@@ -128,6 +129,16 @@ const select = {
 
       thisProduct.cartButton.addEventListener('click', function(event){
         event.preventDefault();
+        thisProduct.processOrder();
+      });
+    }
+
+    initAmountWidget(){
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+
+      thisProduct.amountWidgetElem.addEventListener('updated', function(){
         thisProduct.processOrder();
       });
     }
@@ -170,9 +181,85 @@ const select = {
         }
       }
 
+      if(thisProduct.amountWidget){
+        price = price * thisProduct.amountWidget.value;
+      }
+
       thisProduct.priceElem.innerHTML = price;
     }
   }
+
+   class AmountWidget {
+    constructor(element){
+      const thisWidget = this;
+
+      thisWidget.getElements(element);
+
+      if(thisWidget.input.value){
+        thisWidget.setValue(thisWidget.input.value);
+      } else {
+        thisWidget.setValue(settings.amountWidget.defaultValue);
+      }
+
+      thisWidget.initActions();
+    }
+
+    getElements(element){
+      const thisWidget = this;
+
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+
+    setValue(value){
+      const thisWidget = this;
+
+      const newValue = parseInt(value);
+
+      const min = settings.amountWidget.defaultMin;
+      const max = settings.amountWidget.defaultMax;
+
+      if(
+        !isNaN(newValue) &&
+        newValue !== thisWidget.value &&
+        newValue >= min &&
+        newValue <= max
+      ){
+        thisWidget.value = newValue;
+        thisWidget.announce(); 
+      }
+
+      thisWidget.input.value = thisWidget.value;
+    }
+
+    initActions(){
+      const thisWidget = this;
+
+      thisWidget.input.addEventListener('change', function(){
+        thisWidget.setValue(thisWidget.input.value);
+      });
+
+      thisWidget.linkDecrease.addEventListener('click', function(event){
+        event.preventDefault();
+        thisWidget.setValue((thisWidget.value || settings.amountWidget.defaultValue) - 1);
+      });
+
+      thisWidget.linkIncrease.addEventListener('click', function(event){
+        event.preventDefault();
+        thisWidget.setValue((thisWidget.value || settings.amountWidget.defaultValue) + 1);
+      });
+    }
+
+    announce(){
+      const thisWidget = this;
+
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
+    }
+  }
+
 
   const app = {
     initData: function () {
