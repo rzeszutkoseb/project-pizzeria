@@ -198,3 +198,7 @@
     @include flex(row, flex-start, space-between);
     margin: ($base-size * 4) auto;
   }
+
+  .floor-plan .table.selected {
+  outline: 3px solid #78e08f;
+}
