@@ -1,57 +1,53 @@
-  import {settings, select, classNames} from './settings.js';
-  import Product from './components/Product.js';
-  import Cart from './components/Cart.js';
-  import Booking from './components/Booking.js';
+import {settings, select, classNames} from './settings.js';
+import Product from './components/Product.js';
+import Cart from './components/Cart.js';
+import Booking from './components/Booking.js';
+import Home from './components/Home.js';
 
-  const app = {
-    initData: function () {
-      const thisApp = this;
-      thisApp.data = {};
+const app = {
+  initData: function () {
+    const thisApp = this;
+    thisApp.data = {};
 
-      const url = settings.db.url + '/' + settings.db.products;
+    const url = settings.db.url + '/' + settings.db.products;
 
-      fetch(url)
-        .then(function(rawResponse){
-          return rawResponse.json();
-        })
-        .then(function(parsedResponse){
-          console.log('parsedResponse', parsedResponse);
-
-          thisApp.data.products = parsedResponse;
-          thisApp.initMenu();
-        });
-    },
-
-    initMenu: function () {
-      const thisApp = this;
-
-      console.log('thisApp.data', thisApp.data);
-
-      for (const productData of thisApp.data.products) {
-        new Product(productData.id, productData);
-      }
-    },
-
-
-    initCart: function(){
-      const thisApp = this;
-
-      const cartElem = document.querySelector(select.containerOf.cart);
-      thisApp.cart = new Cart(cartElem);
-
-     thisApp.productList = document.querySelector(select.containerOf.menu);
-      thisApp.productList.addEventListener('add-to-cart', function (event) {
-      thisApp.cart.add(event.detail.product);
+    fetch(url)
+      .then(function(rawResponse){
+        return rawResponse.json();
+      })
+      .then(function(parsedResponse){
+        thisApp.data.products = parsedResponse;
+        thisApp.initMenu();
       });
-    },
+  },
 
-    initPages: function(){
+  initMenu: function () {
+    const thisApp = this;
+
+    for (const productData of thisApp.data.products) {
+      new Product(productData.id, productData);
+    }
+  },
+
+  initCart: function(){
+    const thisApp = this;
+
+    const cartElem = document.querySelector(select.containerOf.cart);
+    thisApp.cart = new Cart(cartElem);
+
+    thisApp.productList = document.querySelector(select.containerOf.menu);
+    thisApp.productList.addEventListener('add-to-cart', function (event) {
+      thisApp.cart.add(event.detail.product);
+    });
+  },
+
+  initPages: function(){
     const thisApp = this;
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
     const idFromHash = window.location.hash.replace('#','');
-    let pageMatchingHash = thisApp.pages[0].id;
+    let pageMatchingHash = 'home';
 
     for(const page of thisApp.pages){
       if(page.id === idFromHash){
@@ -91,16 +87,26 @@
     thisApp.booking = new Booking(bookingElem);
   },
 
-    init: function () {
-      const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      
-      thisApp.initPages();
-      thisApp.initData();
-      thisApp.initCart();
-      thisApp.initBooking();
-    },
-  };
+  initHome: function(){
+    const thisApp = this;
+    const homeElem = document.querySelector('#home');
+    thisApp.home = new Home(homeElem);
+  },
 
-  app.init();
+init: function () {
+  const thisApp = this;
+
+  
+  thisApp.initPages();
+
+  
+  thisApp.initHome();
+
+  
+  thisApp.initData();
+  thisApp.initCart();
+  thisApp.initBooking();
+},
+};
+
+app.init();

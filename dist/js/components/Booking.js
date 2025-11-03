@@ -1,4 +1,3 @@
-// src/js/components/Booking.js
 import { select, templates, classNames, settings } from '../settings.js';
 import utils from '../utils.js';
 import AmountWidget from './AmountWidget.js';

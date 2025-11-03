@@ -1,0 +1,213 @@
+#pages > section { display: none; }
+#pages > section.active { display: block; }
+
+.home.container {
+  padding: 24px 0 48px;
+}
+
+.home__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.home__box {
+  position: relative;
+  height: 180px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+}
+
+.home__box--order   { background-image: url("../images/home/order.jpg"); }
+.home__box--booking { background-image: url("../images/home/booking.jpg"); }
+
+.home__title {
+  position: relative;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 6px 10px;
+  background: transparent;
+  transform: translateY(0);
+  transition: transform .25s ease;
+}
+
+.home__subtitle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 28px);
+  opacity: 0;
+  transition: transform .25s ease, opacity .25s ease;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.home__box:hover .home__title { transform: translateY(-10px); }
+.home__box:hover .home__subtitle {
+  transform: translate(-50%, 8px);
+  opacity: 1;
+}
+
+.home__hours,
+.home_hours {
+  margin: 24px 0;
+  padding: 20px 24px;
+  background: #ff5252;
+  color: #ffffff;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  letter-spacing: .3px;
+}
+
+.home__hours h3,
+.home_hours h3 {
+  margin: 0 0 6px 0;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+}
+
+.home__hours p,
+.home_hours p {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  opacity: .95;
+}
+
+@media (max-width: 768px) {
+  .home__hours,
+  .home_hours { padding: 16px 18px; }
+  .home__hours h3,
+  .home_hours h3 { font-size: 18px; }
+  .home__hours p,
+  .home_hours p { font-size: 15px; }
+}
+
+.home__quotes {
+  background: transparent;
+  margin: 24px 0;
+  padding: 24px 0;
+}
+
+.home__carousel {
+  width: 100%;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.home__carousel .carousel-cell {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 120px;
+  padding: 12px 8px;
+  border: none;
+  background: transparent;
+  text-align: left;
+}
+
+.home__carousel .quote-avatar {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.home__carousel .quote-text {
+  color: #333;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.home__carousel .quote-text p {
+  color: #1a1a1a;
+  font-style: italic;
+  margin-left: 6px;
+}
+
+.home__carousel .quote-author {
+  color: #777;
+  font-style: italic;
+  margin-left: 6px;
+}
+
+.home__carousel .flickity-page-dots .dot { background: #bbb; }
+.home__carousel .flickity-page-dots .dot.is-selected { background: #333; }
+
+.flickity-viewport { overflow: hidden; position: relative; }
+.flickity-slider   { position: absolute; width: 100%; height: 100%; }
+
+.home__gallery { margin-top: 24px; }
+
+.home__gallery .home__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.home__gallery img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+
+.home__gallery img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 22px rgba(0,0,0,.2);
+  filter: brightness(.9);
+}
+
+.home__gallery .home__more {
+  display: inline-block;
+  margin-top: 12px;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.home__pic { position: relative; border-radius: 8px; overflow: hidden; }
+.home__pic img { height: 160px; }
+
+.home__pic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.0);
+  transition: background .2s ease;
+}
+
+.home__pic::after {
+  content: "\f002  \f004"; 
+  font-family: "Font Awesome 5 Free", sans-serif;
+  font-weight: 900;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -40%);
+  color: #fff;
+  opacity: 0;
+  transition: opacity .2s ease, transform .2s ease;
+  letter-spacing: 8px;
+  font-size: 20px;
+  pointer-events: none;
+}
+
+.home__pic:hover::before { background: rgba(0,0,0,.35); }
+.home__pic:hover::after  { opacity: 1; transform: translate(-50%, -50%); }
+
+.main-nav a.active { font-weight: 700; }
+.btn-secondary { cursor: pointer; }
