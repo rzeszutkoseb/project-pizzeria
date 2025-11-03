@@ -1,3 +1,3 @@
 version 2.4
 
-https://b8a58497-1453-4260-90d3-3b9de722c589-00-3ez4uo6mp8ty0.janeway.replit.dev/
+https://922d5675-d43c-4faa-944a-b89e7e289d3b-00-2zpltxqgzlf7r.janeway.replit.dev/
