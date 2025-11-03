@@ -146,8 +146,11 @@
 .home__carousel .flickity-page-dots .dot { background: #bbb; }
 .home__carousel .flickity-page-dots .dot.is-selected { background: #333; }
 
-.flickity-viewport { overflow: hidden; position: relative; }
-.flickity-slider   { position: absolute; width: 100%; height: 100%; }
+.flickity-viewport { overflow: hidden;
+ position: relative; }
+.flickity-slider   { position: absolute;
+ width: 100%;
+ height: 100%; }
 
 .home__gallery { margin-top: 24px; }
 
@@ -179,7 +182,9 @@
   border-bottom: 1px solid currentColor;
 }
 
-.home__pic { position: relative; border-radius: 8px; overflow: hidden; }
+.home__pic { position: relative;
+ border-radius: 8px;
+ overflow: hidden; }
 .home__pic img { height: 160px; }
 
 .home__pic::before {
@@ -191,7 +196,7 @@
 }
 
 .home__pic::after {
-  content: "\f002  \f004"; 
+  content: "\f002  \f004";
   font-family: "Font Awesome 5 Free", sans-serif;
   font-weight: 900;
   position: absolute;
@@ -207,7 +212,8 @@
 }
 
 .home__pic:hover::before { background: rgba(0,0,0,.35); }
-.home__pic:hover::after  { opacity: 1; transform: translate(-50%, -50%); }
+.home__pic:hover::after  { opacity: 1;
+ transform: translate(-50%, -50%); }
 
 .main-nav a.active { font-weight: 700; }
 .btn-secondary { cursor: pointer; }

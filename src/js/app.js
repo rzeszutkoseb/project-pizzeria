@@ -42,12 +42,14 @@ const app = {
   },
 
   initPages: function(){
-    const thisApp = this;
-    thisApp.pages = document.querySelector(select.containerOf.pages).children;
-    thisApp.navLinks = document.querySelectorAll(select.nav.links);
+  const thisApp = this;
 
+  thisApp.pages = document.querySelector(select.containerOf.pages).children;
+  thisApp.navLinks = document.querySelectorAll(select.nav.links);
+
+  function activateFromHash(){
     const idFromHash = window.location.hash.replace('#','');
-    let pageMatchingHash = 'home';
+    let pageMatchingHash = thisApp.pages[0].id; // domyślnie pierwsza sekcja
 
     for(const page of thisApp.pages){
       if(page.id === idFromHash){
@@ -55,18 +57,25 @@ const app = {
         break;
       }
     }
-
     thisApp.activatePage(pageMatchingHash);
+  }
 
-    for(const link of thisApp.navLinks){
-      link.addEventListener('click', function(evt){
-        evt.preventDefault();
-        const id = this.getAttribute('href').replace('#','');
-        thisApp.activatePage(id);
-        window.location.hash = '#' + id;
-      });
-    }
-  },
+  // aktywacja przy starcie
+  activateFromHash();
+
+  // klik w linki menu
+  for(const link of thisApp.navLinks){
+    link.addEventListener('click', function(evt){
+      evt.preventDefault();
+      const id = this.getAttribute('href').replace('#','');
+      thisApp.activatePage(id);
+      window.location.hash = '#' + id;
+    });
+  }
+
+  // >>> NOWE: reaguj na zmianę hasha (np. klik w boxy na Home)
+  window.addEventListener('hashchange', activateFromHash);
+},
 
   activatePage: function(pageId){
     const thisApp = this;
